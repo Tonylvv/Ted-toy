@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <style>
+        #up{
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 100%;
+            height: 300px;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        #down{
+            display: block;
+            width: 100%;
+            height: 300px;
+            background: green;
+        }
+    </style>
+</head>
+<body>
+
+<!--<div id="up"></div>-->
+<input type="text" id="down"/>
+<!--<a href="#" id="down"></a>-->
+<!--<div id="down"></div>-->
+<script>
+    var tapStart = 'ontouchstart' in window ? 'touchstart' : 'mousedown';
+    var tapEnd = 'ontouchend' in window ? 'touchend' : 'mouseup';
+
+//    up.addEventListener(tapStart, function (e) {
+//        this.style.display = 'none';
+//        console.log('你触发了 up 的' + e.type);
+//    });
+    down.addEventListener('click', function (e) {
+        console.log('你触发了 down 的' + e.type);
+//        e.preventDefault();
+    });
+
+    down.addEventListener(tapStart, function (e) {
+        console.log('你触发了 down 的' + e.type);
+//        e.preventDefault();
+    });
+
+    down.addEventListener(tapEnd, function (e) {
+        console.log('你触发了 down 的' + e.type);
+//        e.preventDefault();
+    });
+    down.addEventListener('mousemove', function (e) {
+        console.log('你触发了 down 的' + e.type);
+//        e.preventDefault();
+    });
+
+    down.addEventListener('mouseover', function (e) {
+        console.log('你触发了 down 的' + e.type);
+        e.preventDefault();
+    });
+    down.addEventListener('mouseenter', function (e) {
+        console.log('你触发了 down 的' + e.type);
+        e.preventDefault();
+    });
+    down.addEventListener('mouseleave', function (e) {
+        console.log('你触发了 down 的' + e.type);
+        e.preventDefault();
+    });
+    down.addEventListener('mouseout', function (e) {
+        console.log('你触发了 down 的' + e.type);
+        e.preventDefault();
+    });
+    down.addEventListener('mousedown', function (e) {
+        console.log('你触发了 down 的' + e.type);
+        e.preventDefault();
+    });
+</script>
+</body>
+</html>
