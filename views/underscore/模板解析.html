@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>underscore 模板解析</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="../../libs/zepto.js"></script>
+</head>
+<body>
+
+
+
+<ul id="ul"></ul>
+<script type="text/template" id="temp">
+
+    <% for(var i = 0, len = list.length; i < len; i++){ %>
+        <% var item = list[i]; %>
+        <li>
+            <a href="javascript:;"><%= item.firstName %> <%= item.lastName %></a>
+            <a href="javascript:;"><%= item.city %></a>
+        </li>
+
+    <% } %>
+</script>
+<script src="../../libs/underscore.js"></script>
+<script>
+    var ul = document.getElementById('ul');
+    var temp = document.getElementById('temp');
+    var data = {
+        list: [
+            {firstName: '郭', lastName: '宏亮', city: '北京'},
+            {firstName: '帅', lastName: '哥', city: '北京'},
+            {firstName: '王', lastName: '小姐', city: '北京'}
+        ]
+    };
+//    var r = _.template(temp.innerHTML, data);
+//    console.log(r);
+//    ul.innerHTML = r;
+
+    var rr = _.template(temp.innerHTML, data);
+    console.log(rr);    // 返回的是函数,并不是html 字符串,好像不可以把data 对象数据作为第2个参数传进去了..
+//    var html = rr(data);        // {string} DOM 字符串
+    ul.innerHTML = rr;
+//    for(var c = 0, len = 6; c < len; c++){
+//        ul.innerHTML += html;
+//    }
+    var txt = "<% var i = 0; if (i<1){ %>" + "<%= word %>" + "<% } %>";
+    var c = _.template(txt, {word : "Hello World"});
+    console.log(c);
+
+
+    _.each({one : 1, two : 2, three : 3}, alert);
+</script>
+</body>
+</html>

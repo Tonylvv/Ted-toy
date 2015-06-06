@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="../../libs/zepto.js"></script>
+    <script src="../../libs/underscore.js" type="text/javascript"></script>
+</head>
+<body>
+
+<input type="text" id="input" placeholder="debounce"/><br/><br/>
+<input type="text" id="input2" placeholder="throttle"/>
+<script>
+    // 记住,underscore的所有方法都是写在_()对象的原型上的,所以调用方法时,要对_()对象进行操作.
+    // _(xxxx)对象返回的是一个对象类型,它内部还有个_wrapper属性, 它的value是xxxx.
+    var ary = ['a','b','c','d','e','f'];
+    // map function
+    var mapr = _(ary).map(function (item, index) {
+         return item + '!';     // 返回的值是对对象每一个value的操作的结果
+    });
+
+    console.log(ary, mapr);       // ["a", "b", "c", "d", "e", "f"] ["a!", "b!", "c!", "d!", "e!", "f!"]
+
+    // each function
+    var ary = ['a','b','c','d','e','f'];
+    var eachr = _(ary).each(function (item, index) {
+        ary[index] = item + '?';
+    });
+    console.log(ary, eachr);        //["a?", "b?", "c?", "d?", "e?", "f?"] ["a?", "b?", "c?", "d?", "e?", "f?"]
+</script>
+<script>
+    // debounce function 当函数被调用之后(实际并没执行)的指定时间内未被再次调用,则等待指定时间后真执行该函数.
+    // debounce方法会返回一个新方法
+    // debounce有2个参数:第一个是时间间隔, 第二个是boolean值:
+    // true 在函数被调用就真执行, 然后如果指定时间后未被调用,当用户再调用函数时再真执行(其实就和默认状态的真执行发起点相反)
+    // false 默认状态
+    var keyFn = _(function () {
+        con++;
+        console.log('keypress:' + con);
+    }).debounce(2000);
+
+    var con = 0;
+    input.addEventListener('keypress', keyFn);
+</script>
+<script>
+    // throttle function 规定函数被调用前后2次的最小时间间隔,即函数当前被调用后,下一次被调用最少要等规定时间才允许再次被调用.
+    // throttle 首次调用时会真执行,然后等到时间间隔后如果函数又被调用就立即再次真执行, 期间不管函数是不是一直在被重复不停的执行着!
+    // 和debounce 有区别!
+    // throttle 有2个参数: 第一个是时间间隔, 第二个是个对象,用来限制是否不执行首次或最后一次
+    // {leading: false} 表示不执行第一次;
+    // {trailing: false}表示不执行最后一次;
+    var key2Fn = _(function () {
+        con++;
+        console.log('keypress:' + con);
+    }).throttle(2000);
+    var con = 0;
+    input2.addEventListener('keypress', key2Fn);
+</script>
+</body>
+</html>

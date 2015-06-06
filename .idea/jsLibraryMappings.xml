@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptLibraryMappings">
+    <file url="PROJECT" libraries="{angularjs-DefinitelyTyped, chrome-DefinitelyTyped, gruntjs-DefinitelyTyped, gulp-DefinitelyTyped, jQuery-2.0.0, jquery-DefinitelyTyped, js-git-DefinitelyTyped, node-DefinitelyTyped, node-git-DefinitelyTyped, node-webkit-DefinitelyTyped, npm-DefinitelyTyped, requirejs-DefinitelyTyped, svgjs-DefinitelyTyped, underscore-DefinitelyTyped, underscore.string-DefinitelyTyped, zepto-DefinitelyTyped}" />
+    <includedPredefinedLibrary name="ECMAScript 6" />
+    <includedPredefinedLibrary name="Node.js Globals" />
+  </component>
+</project>
