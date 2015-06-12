@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+</head>
+<body>
+<script>
+    //
+    <!-- ES5中 数组新增的部分方法介绍 -->
+    var ary = [1,2,3,4,5,6,7,8,9,0];
+    var arys = ['a',1,'b',2,'c',3,'d',4,'e',5,'f',6];
+    // ary.forEach
+    var c = [];
+    var r = ary.forEach(function (val, index) {
+        c.push(val * index);
+    });
+    console.log(r, ary, c);
+
+    // ary.every 依次对每个属性执行回调函数, 直到返回 false 停止 或 全部true执行到结尾.
+    var r = ary.every(function (val, index) {
+        console.log(val);   // 1,2,3,4,5,6,7
+        return val < 7;
+    });
+    console.log(r); // false
+
+    // ary.some 与 every 方法相反, 依次对每个属性执行回调函数, 直到返回 true 停止 或 全部false 执行到结尾.
+    var r = ary.some(function (val, index) {
+        console.log(val);   // 1,2,3,4,5,6
+        return val === 6;
+    });
+    console.log(r); // true
+
+    // ary.filter 依次对每个属性执行回调函数, 将返回 true 的属性 push 进一个新数组中.
+    var r = ary.filter(function (val, index) {
+        console.log(val);   // 1,2,3,4,5,6,7,8,9,0
+        return val < 7 && index < 3;
+    });
+    console.log(r); // [1, 2, 3]
+
+    // ary.map 依次对每个属性执行回调函数,将结果 push 一个新数组中.
+    var r = arys.map(function (val, index) {
+        return val * index;
+    });
+    console.log(r); // [NaN, 1, NaN, 6, NaN, 15, NaN, 28, NaN, 45, NaN, 66]
+
+    // ary.reduce
+
+</script>
+</body>
+</html>

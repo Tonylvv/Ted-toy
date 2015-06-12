@@ -39,20 +39,24 @@
 //    var r = _.template(temp.innerHTML, data);
 //    console.log(r);
 //    ul.innerHTML = r;
+    <!-- template 传2个参数 -->
+//    var rr = _.template(temp.innerHTML, data);
+//    console.log(rr);    // 返回的是函数,并不是html 字符串,好像不可以把data 对象数据作为第2个参数传进去了..
+    <!-- template 传1个参数 -->
+    var rr = _.template(temp.innerHTML);
+    var html = rr(data);        // {string} DOM 字符串
+    ul.innerHTML = html;
 
-    var rr = _.template(temp.innerHTML, data);
-    console.log(rr);    // 返回的是函数,并不是html 字符串,好像不可以把data 对象数据作为第2个参数传进去了..
-//    var html = rr(data);        // {string} DOM 字符串
-    ul.innerHTML = rr;
 //    for(var c = 0, len = 6; c < len; c++){
 //        ul.innerHTML += html;
 //    }
+
     var txt = "<% var i = 0; if (i<1){ %>" + "<%= word %>" + "<% } %>";
-    var c = _.template(txt, {word : "Hello World"});
-    console.log(c);
+    var c = _.template(txt);
+    console.log(c({word : "Hello World"}));
 
-
-    _.each({one : 1, two : 2, three : 3}, alert);
+//    _.each({one : 1, two : 2, three : 3}, alert);
+    _({one : 1, two : 2, three : 3}).each(alert);
 </script>
 </body>
 </html>

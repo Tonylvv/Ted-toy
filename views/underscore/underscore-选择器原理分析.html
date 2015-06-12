@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+</head>
+<body>
+
+
+
+<script src="../../libs/underscore.js"></script>
+<script type="text/javascript">
+    <!-- underscore选择器 实现原理模拟-->
+    // 1.定义underscore 选择器,一个方法
+    var Us = function(obj){
+        console.log(this);
+        console.log(this instanceof Us);
+        if(!(this instanceof Us)){
+            return new Us(obj);
+            // 如果underscore选择器是传参的模式, Us(obj), 即执行underscore选择器.
+            // 此时 this === window,然后判断通过,执行new Us(obj),
+            // 这意味着underscore 作为构造函数,会再次执行一次,
+            // 这次 this === 空对象{} 即this表示的是作为 underscore 选择器这个类的一个实例对象,
+            // this instanceof Us === true 了,无法通过 IF判断了.
+            // Us(obj)最终返回的即是 underscore 选择器Us的一个实例对象,带有一个叫_wrapped 的私有属性.
+        }
+        this._wrapped = obj;
+    };
+    var r = Us(2);
+    console.log(r instanceof Us);   // true
+
+    // 2.通过 underscore的 mixin方法,将 Us选择器的私有方法遍历赋给 Us选择器的原型对象上.
+    Us.mixin(Us);
+    
+    // 以下是 mixin 方法, 添加自定义方法到Us 选择器和选择器原型上.
+    Us.mixin = function (obj) {
+
+        // each 是Us 的一个遍历方法 === forEach
+        each(Us.functions(obj), function (name) {
+            // functions() 只遍历出一个对象里的方法属性名 {array}
+
+            // 获取obj某个方法,并定义为 underscore选择器对象的私有方法.
+            var func = Us[name] = obj[name];
+
+            // 关键1: 将obj的方法, 定义给 underscore的原型对象上.
+            Us.prototype[name] = function () {
+                // 获取Us对象Us(obj) 的形参obj包装到一个数组中,为了给 apply方法传数组形参.
+                var args = [this._wrapped];
+
+                // 关键2: 将obj 和 要调用的方法func的形参比如fn,合并为一个数组中.
+                // 这样就实现了: 执行 Us(obj).func(fn) === 执行 Us.func(obj, fn).
+                Array.prototype.push.apply(args, arguments);
+                return func.apply(Us, args);
+            }
+        })
+    };
+
+
+
+</script>
+
+</body>
+</html>

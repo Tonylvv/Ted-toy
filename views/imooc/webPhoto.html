@@ -9,7 +9,7 @@
     <title>慕课网 移动端 web 相册</title>
     <meta name="description" content="2015-6-6">
     <meta name="keywords" content="">
-    <link rel="stylesheet" href="../../libs/animated.css" type="text/css"/>
+    <link rel="stylesheet" href="../../libs/animate.min.css" type="text/css"/>
 
     <style type="text/css">
         html,body,div,ul,li,p,img,h1,h2,h3,h4,h5,h6,input{
@@ -54,7 +54,7 @@
 </head>
 <body>
 <ul id="container" class="img-container"></ul>
-<div class="large animated fadeIn" id="large_container" style="display: none">
+<div class="large animated fadeInDown" id="large_container" style="display: none">
     <img id="large_img" alt="图片"/>
 </div>
 
@@ -84,9 +84,11 @@
             var imgObj = new Image();
             imgObj.index = i;       // 自定义属性
             imgObj.onload = function () {
-                var cvs = $('#cvs_' + this.index)[0].getContext('2d');
-                cvs.width = this.width;
-                cvs.height = this.height;
+                var cv = $('#cvs_' + this.index)[0];
+                var cvs = cv.getContext('2d');
+                // 提醒 canvas 标签设置宽高需要使用属性来设置, css样式设置是无效的, 默认 300*150
+                cv.width = this.width;
+                cv.height = this.height;
                 cvs.drawImage(this, 0, 0);
             };
 
@@ -106,13 +108,13 @@
         imgObj.onload = function () {
 
             wImage.attr('src', imgsrc);
-            callback && callback();     // 有新意!
+            callback && callback();     // 有新意! 判断如果没有回调函数,则不执行回调函数
         };
         imgObj.src = imgsrc;
     };
 
     var cid = null;
-    $(document).on('click', 'li', function (e) {
+    $(document).on('click', 'li', function () {
         var imgId = cid = $(this).attr('data-id');
         $('#large_container').css({
             width: zWin.width(),
@@ -123,13 +125,15 @@
 
     });
 
-
+    var lock = false;       // 判断滑动的动画结束的开关
     $('#large_container').on('click', function () {
         $(this).hide();
         $(this).find('img').attr('src', '');
 
-    }).on('swipeLeft', function (e) {
+    }).on('swipeLeft', function () {
 
+        if(lock === true){return;}
+        lock = true;
         cid++;
         if(cid > total){
             cid = total;
@@ -139,12 +143,15 @@
         });
 
         wImage[0].addEventListener('webkitAnimationEnd', function () {
+            lock = false;
             $(this).removeClass('animated fadeInRight');
             this.removeEventListener('webkitAnimationEnd');
 
         })
 
-    }).on('swipeRight', function (e) {
+    }).on('swipeRight', function () {
+        if(lock === true){return;}
+        lock = true;
         cid--;
         if(cid < 1){
             cid = 1;
@@ -154,6 +161,7 @@
         });
 
         wImage[0].addEventListener('webkitAnimationEnd', function () {
+            lock = false;
             $(this).removeClass('animated fadeInLeft');
             this.removeEventListener('webkitAnimationEnd');
 
