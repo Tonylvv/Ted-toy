@@ -2,6 +2,7 @@
 <project version="4">
   <component name="JSLintConfiguration">
     <option ass="true" />
+    <option bitwise="true" />
     <option closure="true" />
     <option continue="true" />
     <option debug="true" />
@@ -12,6 +13,7 @@
     <option nomen="true" />
     <option plusplus="true" />
     <option sloppy="true" />
+    <option stupid="true" />
     <option unparam="true" />
     <option white="true" />
   </component>

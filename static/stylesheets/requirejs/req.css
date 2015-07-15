@@ -1,0 +1,53 @@
+/* line 1, ../../scss/requirejs/req.scss */
+* {
+  padding: 0;
+  margin: 0;
+}
+
+/* line 5, ../../scss/requirejs/req.scss */
+.main {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  margin: 0 auto;
+  border: 1px solid #000000;
+  overflow: hidden;
+}
+/* line 13, ../../scss/requirejs/req.scss */
+.main .focus-main {
+  position: absolute;
+  left: -25%;
+  width: 300%;
+  height: 100%;
+}
+/* line 18, ../../scss/requirejs/req.scss */
+.main .focus-main .item {
+  float: left;
+  width: 16.66667%;
+  height: 100%;
+  list-style: none;
+}
+/* line 23, ../../scss/requirejs/req.scss */
+.main .focus-main .item.t-1 {
+  background: green;
+}
+/* line 26, ../../scss/requirejs/req.scss */
+.main .focus-main .item.t-2 {
+  background: pink;
+}
+/* line 29, ../../scss/requirejs/req.scss */
+.main .focus-main .item.t-3 {
+  background: yellow;
+}
+/* line 32, ../../scss/requirejs/req.scss */
+.main .focus-main .item.t-4 {
+  background: green;
+}
+/* line 35, ../../scss/requirejs/req.scss */
+.main .focus-main .item.t-5 {
+  background: purple;
+}
+/* line 38, ../../scss/requirejs/req.scss */
+.main .focus-main .item.t-6 {
+  background: red;
+}
