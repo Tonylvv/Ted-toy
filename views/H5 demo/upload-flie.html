@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <style type="text/css">
+        img{
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+
+<input type="file" id="file" name="file" multiple/>
+<div id="content"></div>
+
+
+<script src="../../libs/zepto.js"></script>
+<script>
+
+    var file = $('#file'), content = $('#content');
+    file.on('change', function (e) {
+        var files = e.target.files;
+        localShowFn(files);
+    })
+    // 本地展示上传的图片
+    function localShowFn(data){
+        var imgBox = [];
+        for(var i = 0, len = data.length; i < len; i++){
+            (function(data, num){
+                var reader = new FileReader();
+                reader.onload = function (e) {
+//                    console.log(e);
+                    var img = new Image();
+                    img.onload = function () {
+                        imgBox[num] = img;
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(data);
+            })(data[i], i);
+
+        };
+        setTimeout(function () {
+            console.log(imgBox)
+
+            imgBox.forEach(function (val) {
+                content.append(val);
+            })
+        }, 1000);
+    }
+
+    // ajax 给后台, 获取图片url 展示到页面上
+    function uploadFn(data){
+        var form = new FormData;
+        form.append('images', data);
+        var xhr = new XMLHttpRequest();
+        xhr.open('post', 'url');
+        xhr.onreadystatechange = function () {
+            if(xhr.status == 200 && xhr.readyState == 4){
+                var data = xhr.response;
+                /* 判断并加入 Html */
+            }
+        };
+
+        xhr.send(form);
+    }
+
+
+</script>
+</body>
+</html>

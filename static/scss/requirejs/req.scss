@@ -39,6 +39,33 @@
         background: red;
       }
     }
-
   }
 }
+
+/* sprite 创建雪碧精灵 */
+/* sprites模块必须引入,否则使用compass 的sprite混合宏会失效 */
+@import "compass/utilities/sprites";
+// 图片间距
+$png-spacing: 100px;
+// 图片排列方式:默认垂直排列,还有 水平,斜角,智能排列.
+//$png-layout:'smart';
+$png-e1-position:100%;
+$png-e2-position:0;
+// 引入需要合并的图片.
+@import 'png/*.png';
+// 合并成雪碧图并显示所有的子图定位系数.
+@include all-png-sprites;
+// 有选择的显示有需要的子图定位系数.
+//.test{
+//  @include png-sprite(e1);
+//  background-size: 50%;
+//}
+
+/* sprite-map 的方式创建雪碧精灵 */
+//$f:sprite-map('png/*.png', $layout: 'diagonal');
+//.ff{
+//  background: sprite($f, e1);
+//}
+//.fg{
+//  background: sprite($f, e2);
+//}

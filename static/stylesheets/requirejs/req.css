@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* line 1, ../../scss/requirejs/req.scss */
 * {
   padding: 0;
@@ -51,3 +52,23 @@
 .main .focus-main .item.t-6 {
   background: red;
 }
+
+/* sprite 创建雪碧精灵 */
+/* sprites模块必须引入,否则使用compass 的sprite混合宏会失效 */
+/* line 56, png/*.png */
+.png-sprite, .png-e1, .png-e2 {
+  background-image: url('../../images/png-s239088ebcb.png');
+  background-repeat: no-repeat;
+}
+
+/* line 84, ../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.png-e1 {
+  background-position: -212px 0;
+}
+
+/* line 84, ../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.png-e2 {
+  background-position: 0 -441px;
+}
+
+/* sprite-map 的方式创建雪碧精灵 */

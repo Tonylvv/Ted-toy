@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+</head>
+<body>
+<canvas id="cv"></canvas>
+<script>
+
+    var cv = document.getElementById('cv');
+    var context = cv.getContext('2d');
+    cv.width = 1000;
+    cv.height = 1000;
+    var radius = 100;
+    var width = 20;
+    var ang = Math.PI * 2 * 0.375;
+    context.lineWidth = width;
+    // 渐变颜色 未完成
+    //    var lin = context.createRadialGradient(0, 200, radius, 0, 360, radius);
+    var lin = context.createLinearGradient(200, 200, 0, 300);
+    lin.addColorStop(0, 'red');
+    lin.addColorStop(0.2, 'black');
+    lin.addColorStop(0.4, 'yellow');
+    lin.addColorStop(0.6, 'pink');
+    lin.addColorStop(0.8, 'blue');
+    lin.addColorStop(1, 'green');
+    //    context.fillStyle = lin;
+    //    context.fillRect(0, 0, 750, 750);
+    //context.imageSmoothingEnabled = true;
+
+    // 内圆
+//    context.beginPath();
+//    context.arc(200, 200, radius, 0, Math.PI * 2, false);
+//    context.fillStyle = 'blue';
+//    context.fill();
+//    context.closePath();
+
+//    context.save();
+    // 外半弧形
+    function draw(){
+        ang += (Math.PI * 2 / 360) * 6;
+        if(ang > (Math.PI * 2 + Math.PI * 2 * 0.125)) return;
+        context.beginPath();
+        //    context.moveTo(100, 100);
+        context.arc(200, 200, radius, Math.PI * 0.375 * 2, ang, false);
+        context.strokeStyle = lin;
+        context.stroke();
+        context.closePath();
+
+        context.globalCompositeOperation = 'destination-atop';
+//
+//        context.beginPath();
+//        context.arc(200, 200, radius, Math.PI * 0.375 * 2, ang, false);
+//        context.strokeStyle = lin;
+//        context.stroke();
+//        context.closePath();
+    }
+//    context.restore();
+
+    setInterval(draw, 20);
+
+
+    // 内圆 居中 文字
+    context.font = 'bold 19px Arial';
+    context.fillStyle = 'green';
+    context.textAlign = 'center';
+    context.textBaseline = 'middle';
+    context.moveTo(200, 200);
+    context.fillText('100%', 200, 200);
+
+</script>
+</body>
+</html>
