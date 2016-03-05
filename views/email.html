@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no;">
+	<title>移动端email 功能</title>
+	<link rel="stylesheet" href="">
+	<style>
+		.open-email{
+			display: block;
+			width: 200px;
+			height: 30px;
+			color: green;
+			font-size: 16px;
+			text-align: center;
+			line-height: 30px;
+			border: 1px solid pink;
+		}
+		.tap-email{
+			display: block;
+			width: 200px;
+			height: 30px;
+			background: gray;
+			text-align: center;
+			margin: 40px;
+			-webkit-touch-callout: default;
+		}
+	</style>
+</head>
+<body>
+	 <a class="open-email" href="javascript:;">打开邮箱</a>
+	 <a class="tap-email" href="http://10.0.117.160:9000/email.html" target="_blank">http://www.qq.com/</a>
+	 <div class="tap-email">http://www.qq.com/</div>
+	 <script>
+
+
+        var open = document.querySelector('.open-email');
+        var tap = document.querySelector('.tap-email');
+
+        var config = 'subject=主题:活动邀请&body=活动主体展示部分%0A%0A' + 
+    				  'http://m.focus.cn/%0A%0A' + 
+    				 '第二行文字%0A%0A' + 
+    				 '<img src="http://mat1.gtimg.com/www/mobi/image/logo.png" width="200" height="30">';
+        var mail = 'pocket-monsters@sohu.com?cc=guohongliang2012@163.com&bcc=123@163.com';
+        window.onload = function(){
+        	open.href = "mailto:" + mail + '&' + config;
+        	console.log('加载完毕了哦');
+        }
+
+        tap.onclick = function(e){
+        	e.preventDefault();
+        }
+
+	 </script>
+</body>
+</html>

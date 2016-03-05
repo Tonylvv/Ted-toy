@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+<div id="div1" style="width:100px; height:100px; position:absolute; top:0; left:0; background:red;"></div>
+</body>
+</html>
+<script>
+//定时器：作用，参数，返回值
+//setTimeout();第一个参数是一个函数，第二个参数是个时间间隔，指在第二指定的时间内，让第一参数的函数运行一次。
+//setInterval();第一个参数是一个函数，第二个参数是个时间间隔。指在第二指定的时间内，让第一参数的函数运行不断的运行。
+//这是个异步的方法，不会阻塞后边的代码的执行
+function fn(){
+	alert("fn");
+	alert(timer);
+	}
+var timer=window.setTimeout(fn,1000);
+//定时器是有返回值的
+alert(18);
+alert(timer);
+//clearTimeout(timer);
+</script>

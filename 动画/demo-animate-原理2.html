@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+<div id="div1" style="width:100px; height:100px; position:absolute; top:0; left:0; background:red;"></div>
+</body>
+</html>
+<script>
+var ele=document.getElementById('div1');
+var target=800
+function  move(ele,target){
+	function _move(){
+		if(ele.offsetLeft>=target)clearInterval(timer);		
+		ele.style.left=ele.offsetLeft+5+'px';
+	}
+	var timer=window.setInterval(_move,30);}
+
+ele.onclick=function(){move(this,900)}
+
+</script>

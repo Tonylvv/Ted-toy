@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+<div id="div1" style="width:100px; height:100px; position:absolute; top:0; left:900px; background:red;"></div>
+<div id="div2" style="width:100px; height:100px; position:absolute; top:150px; left:0px; background:blue;"></div>
+</body>
+</html>
+<script>
+var ele=document.getElementById('div1');
+//var target=800
+
+function move(ele,target){
+	//var timer=null;
+	//ele.timer=null;	
+	function _move(){//闭包方法
+		if(ele.offsetLeft<target){//向右走，正方向，累加
+			ele.style.left=ele.offsetLeft+5+'px';
+		}else if(ele.offsetLeft>target){//向左走，负方向，累减
+			ele.style.left=ele.offsetLeft-5+'px';
+		}else{//相等,表示到达终点
+			clearInterval(timer);
+			//timer=null;
+		}
+	}
+	var timer=window.setInterval(_move,20);
+	
+}
+ele.onclick=function(){move(this,10)}
+div2.onclick=function(){move(this,800);}
+</script>

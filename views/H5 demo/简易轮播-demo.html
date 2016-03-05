@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title></title>
+	<link rel="stylesheet" href="">
+	<style>
+		div, ul, li{
+			margin: 0;
+			padding: 0;
+		}
+		.outer{
+			position: relative;
+			width: 170px;
+			height: 30px;
+			border: 1px solid black;
+			overflow: hidden;
+		}
+		.list{
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			transition-property: all;
+			transition-duration: 0ms;
+			transition-timing-function: linear; 
+		}
+		.item{
+			height: 30px;
+			font-size: 20px;
+			font-weight: 200;
+		}
+	</style>
+</head>
+<body>
+	<div class="outer" style="position: relative;top: 70px;">
+		<ul class="list">
+			<li class="item">1</li>
+			<li class="item">2</li>
+			<li class="item">3</li>
+			<li class="item">4</li>
+			<li class="item">5</li>
+			<!-- <li class="item">1</li> -->
+		</ul>
+	</div>
+	<div class="outer"></div>
+	<script>
+		var list = document.querySelector('.list');
+		var item = document.querySelectorAll('.item');
+
+		var h = parseInt(getComputedStyle(item.item(0), null).height);
+		
+		var len = item.length;
+		var dur = 200;		//过渡的时间 单位 ms
+		var count = 0;
+		var hasEvent = false;	//浏览器是否支持 transitionEnd 事件
+		window.setInterval(function(){
+			count++;
+			if (count === len) {
+				//充分利用 relative 定位的特点，无需复制第1个 DOM 节点即可实现相同的效果！减少 DOM 操作
+				item.item(0).style.position = 'relative';
+				item.item(0).style.top = h * len + 'px';
+			};
+
+			list.style.transitionDuration = dur + 'ms';
+			list.style.top = '-' + h * count + 'px';
+			//如果不支持 webkitTransitionEnd事件，改为定时器模拟
+			setTimeout(function(){	
+				if (hasEvent) return;
+				initDuration();
+				
+			}, (dur + 25));
+
+		}, 3000);
+		//重置 transition的过渡时间为0
+		list.addEventListener('webkitTransitionEnd', function(){
+				hasEvent = true;
+				initDuration();
+		});
+
+		function initDuration(){
+			list.style.transitionDuration = '0ms';
+
+			if (count >= len){
+				item.item(0).style.position = 'static';
+				list.style.top = 0;
+				count = 0;
+			}
+		}
+
+		//存疑：以下方式实现不了重置第1张位置，修改过渡时间无效果。貌似修改过渡时间需要一定的时延。。
+		// window.setInterval(function(){
+		// 	count++;
+		// 	if (count === len) {
+		// 		list.style.transitionDuration = '0ms';
+		// 		list.style.transform = 'translateY(' + 0 + 'px)';	//实际效果是轮播图不是瞬间重置，而是有动画的滚动重置，设置0ms 无效果！
+		// 		count = 1;
+		// 	};
+
+		// 	list.style.transform = 'translateY(-' + h * count + 'px)';
+		// 	list.style.transitionDuration = '200ms';
+
+		// }, 3000);
+
+
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <!--组件样式-->
+    <style>
+        @font-face {
+            font-family:"LED";
+            src:url("font/LED.eot?") format("eot"),
+            url("font/LED.woff") format("woff"),
+            url("font/LED.ttf") format("truetype"),
+            url("font/LED.svg#LED") format("svg");
+            font-weight:normal;
+            font-style:normal;
+        }
+        .ez-led{
+            font-family : "LED";
+            font-size : 40px;
+            background : #70d355;
+            width: 300px;
+            height:60px;
+            line-height : 60px;
+            text-align : right;
+            padding : 10px;
+            letter-spacing:5px;
+        }
+    </style>
+    <script src="../build/react.min.js"></script>
+    <!--<script src="../build/react-dom.min.js"></script>-->
+    <script src="../build/JSXTransformer.js"></script>
+</head>
+<body>
+
+    <div class="content"></div>
+
+
+    <script type="text/jsx">
+
+        //定义react 组件
+        //JSX 格式
+        var Hello = React.createClass({
+            render: function () {
+                return <ul>
+                    <li className="ez-led" style={{color: "green"}}>1</li>
+                    <li className="ez-led" style={{ color: "red" }}>2</li>
+                    <li className="ez-led">7</li>
+                </ul>;
+            }
+        });
+
+        // Hello2和Hello 这2个组件是相同的意思,只是书写方式不一样,相比较而言,JSX 格式更容易阅读理解
+        //JS 格式
+        var Hello2 = React.createClass({
+            render: function () {
+                return React.createElement("ul", null, React.createElement("li", {className: "ez-led", style: {color: "red"}}, 1), React.createElement("li", {className: "ez-led", style: {color: "red"}}, 2), React.createElement("li", {className: "ez-led", style: {color: "#fff", fontSize: "20px"}}, 7))
+            }
+        });
+
+
+        console.log(Hello);     //Function ; 是个类.
+        //var f = <Hello />;
+        //React.render(<Hello2 />, document.querySelector(".content"));
+
+        var t = React.createElement("div", {className: "item"}, "文案");
+        //t.style.color = "red";
+
+        React.render(t, document.querySelector(".content"));
+        console.log(t);     //Object; react 虚拟dom 元素
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+!function(export){console.log(export.navigator.userAgent);q}(window);

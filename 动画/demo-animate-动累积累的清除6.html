@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+<div id="div1" style="width:100px; height:100px; position:absolute; top:0; left:900px; background:red;"></div>
+<div id="div2" style="width:50px; height:50px; position:absolute; top:150px; left:0px; background:blue;">left</div>
+<div id="div3" style="width:50px; height:50px; position:absolute; top:150px; left:100px; background:yellow;">right</div>
+</body>
+</html>
+<script>
+var ele=document.getElementById('div1');
+//var target=800
+
+function move(ele,target){
+	//var timer=null;
+	//ele.timer=null;
+	clearInterval(ele.timer);//把定时器返回值赋给运动对象的属性
+	function _move(){//闭包方法
+		if(ele.offsetLeft<target){//向右走，正方向，累加
+			if(ele.offsetLeft+5>=target){//过界判断
+				ele.style.left=target+'px';
+			}else{
+				ele.style.left=ele.offsetLeft+5+'px';
+			}
+		}else if(ele.offsetLeft>target){//向左走，负方向，累减
+			if(ele.offsetLeft-5<=target){//过界判断
+				ele.style.left=target+'px';
+			}else{
+				ele.style.left=ele.offsetLeft-5+'px';
+			}
+		}else{//相等,表示到达终点
+			clearInterval(ele.timer);
+			ele.timer=null;
+		}
+	}
+	ele.timer=window.setInterval(_move,20);	
+}
+div2.onclick=function(){move(ele,7);}
+div3.onclick=function(){move(ele,777)}
+//普通的均速动画的要点：
+//1、明确运动的元素。2、目的地。3、起点。起点的值怎么得到（ele.offsetLeft）。4、方向。向左还是向右。5、过界判断。6、清除动画积累
+
+</script>

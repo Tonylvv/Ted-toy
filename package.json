@@ -1,0 +1,33 @@
+{
+  "name": "tedtoy",
+  "version": "1.0.0",
+  "description": " 自测搭建环境",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-connect": "^0.11.2",
+    "grunt-contrib-watch": "^0.6.1",
+    "load-grunt-config": "^0.19.1",
+    "load-grunt-tasks": "^3.4.0",
+    "time-grunt": "^1.3.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tonylvv/Ted-toy.git"
+  },
+  "keywords": [
+    "grunt",
+    "toy",
+    "ted"
+  ],
+  "author": "tedg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tonylvv/Ted-toy/issues"
+  },
+  "homepage": "https://github.com/Tonylvv/Ted-toy#readme"
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>高德地图定位之搜索周边设施</title>
+	<meta name="keywords" content="1.3版本">
+	<link rel="stylesheet" href="">
+	<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=085f3a13afe86d3736dfa80f14ed01a4"></script>
+</head>
+<body>
+	<div>您现在周边有:</div>
+	<div class="bus" style="color: black;"></div>
+
+	<div class="station" style="color: blue;"></div>
+	<div class="area"></div>
+	<div class="street"></div>
+	<div class="building"></div>
+	<script>
+		if (window.navigator.geolocation) {
+			window.navigator.geolocation.getCurrentPosition(function(pos){
+				var lat = pos.coords.latitude;
+            	var lng = pos.coords.longitude;
+            	var mapZB = new AMap.LngLat(lng, lat);
+        		// var lng = 119.505972;
+	       		// var lat = 39.904664;
+	       		<!-- 高德v1.3 API 获取经纬度的周边设施POI -->
+	       		//先获取“周边”插件
+		       	AMap.service(['AMap.PlaceSearch'], function(){
+		       		// 创建周边对象 POI
+			       	var p = new AMap.PlaceSearch({
+			       		pageSize: 10,		//获取多少条数据，15即表示获取前15条的数据
+			       		type: '交通设施服务'	//周边设施POI的类型(此处也可以使用对应的数字编号)  POI搜索类型共分为以下20种：汽车服务|汽车销售|汽车维修|摩托车服务|餐饮服务|购物服务|生活服务|体育休闲服务|医疗保健服务|住宿服务|风景名胜|商务住宅|政府机构及社会团体|科教文化服务|交通设施服务|金融保险服务|公司企业|道路附属设施|地名地址信息|公共设施 默认值：餐饮服务、商务住宅、生活服务
+			       	});
+			       	//搜索周边 将'关键词'作为参数1，参数2为中心点坐标，参数3为半径，单位米，参数4为回调函数
+			       	//公交
+			       	p.searchNearBy('公交站', mapZB, 3000, function(s, r){
+			       		if (s === 'complete' && r.info === 'OK') {
+			       			console.log(r);
+			       			var busEle = document.querySelector('.bus');
+			       			var poiAry = r.poiList.pois;
+			       			poiAry.forEach(function(val){
+			       				var busName = val.name;
+			       				var busAdd = val.address;
+			       				var dis = val.distance;
+			       				var tot = busName + ': ' + busAdd + '&nbsp;&nbsp;&nbsp;' + dis + '米';
+			       				var item = document.createElement('p');
+			       				item.innerHTML = tot;
+			       				busEle.appendChild(item);
+			       			})
+			       		}
+			       	});
+		       		//地铁
+			       	p.searchNearBy('地铁', mapZB, 3000, function(s, r){
+			       		if (s === 'complete' && r.info === 'OK') {
+			       			console.log(r);
+			       			var stationEle = document.querySelector('.station');
+			       			var poiAry = r.poiList.pois;
+			       			poiAry.forEach(function(val){
+			       				var stationName = val.name;
+			       				var stationAdd = val.address;
+			       				var dis = val.distance;
+			       				var tot = stationName + ': ' + stationAdd + '&nbsp;&nbsp;&nbsp;' + dis + '米';
+			       				var item = document.createElement('p');
+			       				item.innerHTML = tot;
+			       				stationEle.appendChild(item);
+			       			})
+			       		}
+			       	})
+		       	});
+			})
+
+		} else {
+			alert('你的浏览器暂不支持定位功能，请更新')
+		}
+       	
+	</script>
+</body>
+</html>

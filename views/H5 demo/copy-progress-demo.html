@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>模拟进度条</title>
+	<meta name="description" content="说明：通过一个执行时长很长的动画，模拟进度条，当回调执行成功之后，立即设置 animation:none 完成进度条动画">
+	<link rel="stylesheet" href="">
+	<style>
+		.progress-box{
+			width: 100px;
+			height: 30px;
+			margin: 0 auto;
+			padding: 0;
+			border: 1px solid black;
+			background: #ccc;
+		}
+		.progress-box:before{
+           content: "";
+           display: block;
+           width: 100%;
+           height: 100%;
+           padding-right: 0%;
+           box-sizing: border-box;
+           background: #eee;
+           background-clip: content-box;
+           animation: test 30s linear;
+           animation-fill-mode: none;
+		}
+		@-webkit-keyframes test{
+			0%{
+				padding-right: 100%;
+			}
+			20%{
+				padding-right: 80%;
+			}
+			40%{
+				padding-right: 60%;
+			}
+			60%{
+				padding-right: 40%;
+			}
+			80%{
+				padding-right: 20%;
+			}
+			100%{
+				padding-right: 10%;
+			}
+		}
+
+		/*.progress-box:before{
+           content: "";
+           display: block;
+           width: 100%;
+           height: 100%;
+           padding-right: 100%;
+           box-sizing: border-box;
+           background: #eee;
+           background-clip: content-box;
+           animation: test 3s steps(3, end);		//关注下 steps()函数，均速执行整个动画周期
+           animation-fill-mode: none;
+		}
+		@-webkit-keyframes test{
+			0%{
+				padding-right: 100%;
+			}
+			100%{
+				padding-right: 0;
+			}
+		}*/
+		.animation-complete:before{
+			animation: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="progress-box" data-src="http://www.qq.com/">
+		
+	</div>
+
+
+	<script>
+		var div = document.querySelector(".progress-box"),
+			isAjaxComplete = false;	//ajax是否请求成功
+		div.onclick = function(){
+			//模拟一条请求成功的 ajax 或图片
+			isAjaxComplete = true;
+			if (isAjaxComplete) {
+				this.className += ' animation-complete';	// 请求成功后设置进度条为满条状态，体验比较好
+			}
+		}
+
+
+	</script>
+</body>
+</html>

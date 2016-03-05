@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>基本动画--珠峰培训</title>
+<style type="text/css">
+#outer{ width:450px; height:230px; position:relative; margin:50px auto; background:pink; overflow:hidden;}
+#inner{ width:2250px; height:230px; position:absolute; top:0px; left:0;}
+#inner div{ width:450px; height:230px; float:left; line-height:230px; text-align:center; font-size:36px; font-weight:bold; color:#fff; background:red;}
+ul#btn{ margin:0; padding:0; list-style:none; position:absolute; bottom:15px; right:15px; height:30px; width:230px;}
+ul#btn li{ float:left; width:25px; margin-right:5px; height:25px; border:4px solid orange; border-radius:50%; font-size:24px; font-weight:bold; line-height:25px; text-align:center; background:#366; cursor:pointer; -webkit-user-select:none;  }
+ul#btn li.current{ background:white;}
+</style>
+</head>
+
+<body>
+<div id="outer">
+	<div id="inner">
+    	<div>111111111111</div>
+        <div style="background:yellow; color:blue">222222222222</div>
+        <div style="background:black;">333333333333</div>
+        <div style="background:purple;">444444444444</div>
+        <div style="background:blue;">555555555555</div>
+        
+    
+    </div>
+	<ul id="btn">
+    	<li class="current" >1</li>
+        <li >2</li>
+        <li >3</li>
+        <li >4</li>
+        <li >5</li>
+    </ul>
+</div>
+</body>
+</html>
+<script src="move.js"></script>
+<script>
+//注意上面HTML代码中，已经把第一张DIV复制，并粘贴到第五个DIV的后边。并且已经更改了inner的宽度为6*内部DIV的宽
+var oLis=document.getElementById('btn').getElementsByTagName('li');
+var oInner=document.getElementById('inner');
+var oDivs=oInner.getElementsByTagName('div');
+var oCopy=oDivs.item(0).cloneNode(true);
+//alert(oCopy.offsetWidth);
+oInner.appendChild(oCopy);//一定先添加，再求oCopy宽度。
+oInner.style.width=oInner.offsetWidth+oCopy.offsetWidth+'px';
+for(var i=0;i<oLis.length;i++){
+	oLis.item(i).n=i;
+	oLis.item(i).onclick=function(){
+		clearInterval(autoTimer);
+		//下面这个清除类样式用循环更好理解
+		if(step==oLis.length){
+			oLis.item(0).className="";
+		}else{
+			oLis.item(step).className="";
+		}
+		oLis.item(this.n).className="current";
+		move(oInner,"left",this.n*-450);
+		step=this.n;//这一步是让自动动画在当前这一张的基础上往下走。
+		autoTimer=window.setInterval(autoMove,3000);
+	}
+}
+var step=0;
+function autoMove(){
+	if(step==oLis.length){//第六个图片对应是第一个li
+		oLis.item(0).className="";
+	}else{//正常情况下，step在累加之前，总是表示上一个LI的索引
+		oLis.item(step).className="";
+	}
+	step++;
+	if(step==oLis.length+1){//如果走到了第六张，则把坐标切换到第一张上来。
+		oInner.style.left=0;//切换坐标
+		step=1;	//然后再从第一张往第二张上走，所以让step=1；
+	}
+	if(step==5){//第5个索引（就是第六张）对应的是第一张DIV，所以这儿要做个判断
+		oLis.item(0).className="current";
+	}else{//正常情况下走到第几张，就让对应的li切换背景
+		oLis.item(step).className="current";
+	}
+	move(oInner,"left",step*-450);
+}
+var autoTimer=window.setInterval(autoMove,2000);
+</script>
